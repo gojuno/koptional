@@ -9,7 +9,6 @@ sealed class Optional<out T : Any> {
 }
 
 data class Some<out T : Any>(val value: T) : Optional<T>()
-
 object None : Optional<Nothing>()
 
 fun <T : Any> T?.toOptional(): Optional<T> = if (this == null) None else Some(this)
