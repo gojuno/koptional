@@ -1,5 +1,13 @@
 ## Koptional — Minimalistic Optional type for Kotlin
 
+Disclaimer:
+
+>We don't think that Kotlin itself needs `Optional` because it has strong null-safe type system that effectively eliminates need in such a wrapper. However there are APIs and libraries like [RxJava 2][rxjava2] which don't accept `null` values. 
+
+>We also think that in many cases you can use `sealed class`es to express abscent values, however in simple cases like passing `String?` through Rx stream `Optional` is a more convenient solution.
+
+---
+
 The goal of this implementation is to be convenient to use and fit Kotlin's null-safe type system, which resulted in:
 
 * Only two functions (mimics Kotlin std `toInt()`/`toBoolean()`/etc):
