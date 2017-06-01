@@ -30,14 +30,32 @@ val v = when (optional) {
     is Some -> optional.value // Smart Casts Optional to Some and allows you access its value.
     is None -> "fallback"
 }
+
+// Filter only Some values in RxJava2 streams.
+val values: Observable<String> = Observable
+    .just(Some("a"), None, Some("b"))
+    .filterSome()
+
+// Filter only None values in RxJava2 streams.
+val nones: Observable<Unit> = Observable
+    .just(Some("a"), None, Some("b"))
+    .filterNone()
 ```
 
 ### Download
 
 Koptional is [available on jcenter](https://jcenter.bintray.com/com/gojuno/koptional).
 
+Optional type:
+
 ```groovy
 compile 'com.gojuno.koptional:koptional:put-some-version'
+```
+
+[RxJava 2][rxjava2] extensions:
+
+```groovy
+compile 'com.gojuno.koptional:koptional-rxjava2-extensions:put-some-version'
 ```
 
 All the releases and changelogs can be found on [Releases Page](https://github.com/gojuno/koptional/releases).
@@ -67,3 +85,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+[rxjava2]: https://github.com/ReactiveX/RxJava/

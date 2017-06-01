@@ -1,0 +1,119 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+def gitTag() {
+    def tag = 'git tag --list --points-at HEAD'.execute((List) null, rootProject.projectDir).text.trim()
+
+    if (tag.split(System.lineSeparator()).length > 1) {
+        throw new IllegalStateException("gitTag is accessed but commit has multiple tags: $tag")
+    }
+
+    return tag
+}
+
+def projectVersion() {
+    def tag = gitTag()
+
+    if (tag.startsWith('v')) {
+        return tag.substring(1)
+    } else if (tag.isEmpty()) {
+        return "development"
+    }
+
+    return tag
+}
+
+def validateTagAndVersion() {
+    if (gitTag().isEmpty()) {
+        throw new IllegalStateException('Publishing is not allowed because current commit has no tag')
+    }
+
+    if (projectVersion().isEmpty()) {
+        throw new IllegalStateException('Publishing is not allowed because current projectVersion is empty')
+    }
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    developers {
+        developer {
+            id 'gojuno'
+            name 'Juno Inc.'
+            email 'opensource@gojuno.com'
+        }
+    }
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task validatePublishing {
+    doLast {
+        validateTagAndVersion()
+    }
+}
+
+bintrayUpload.dependsOn validatePublishing
+
+publishing {
+    publications {
+        KoptionalPublication(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            groupId 'com.gojuno.koptional'
+            artifactId project.name
+            version projectVersion()
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', project.description)
+                root.appendNode('name', project.name)
+                root.appendNode('url', 'https://github.com/gojuno/koptional')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = 'koptional'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/gojuno/koptional.git'
+        issueTrackerUrl = 'https://github.com/gojuno/koptional/issues'
+        publications = ['KoptionalPublication']
+
+        version {
+            name = projectVersion()
+            vcsTag = gitTag()
+
+            gpg {
+                sign = true
+                passphrase = System.getenv('BINTRAY_GPG_PASSPHRASE')
+            }
+        }
+    }
+}
