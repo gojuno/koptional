@@ -1,0 +1,117 @@
+apply plugin: 'kotlin'
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+dependencies {
+    compile libraries.kotlinStd
+}
+
+dependencies {
+    testCompile libraries.spek
+    testCompile libraries.spekJunitPlatformEngine
+    testCompile libraries.assertJ
+}
+
+jar {
+    // Build jar with dependencies.
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+}
+
+junitPlatform {
+    platformVersion = versions.junitPlatform
+
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task validatePublishing {
+    doLast {
+        validateTagAndVersion()
+    }
+}
+
+bintrayUpload.dependsOn validatePublishing
+
+def pomConfig = {
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    developers {
+        developer {
+            id 'gojuno'
+            name 'Juno Inc.'
+            email 'opensource@gojuno.com'
+        }
+    }
+}
+
+publishing {
+    publications {
+        KoptionalPublication(MavenPublication) {
+            from components.java
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            groupId 'com.gojuno.koptional'
+            artifactId 'koptional'
+            version projectVersion()
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Minimalistic Optional type for Kotlin that tries to fit its null-safe type system as smooth as possible.')
+                root.appendNode('name', 'Koptional')
+                root.appendNode('url', 'https://github.com/gojuno/koptional')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = 'koptional'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/gojuno/koptional.git'
+        issueTrackerUrl = 'https://github.com/gojuno/koptional/issues'
+        publications = ['KoptionalPublication']
+
+        version {
+            name = projectVersion()
+            vcsTag = gitTag()
+            
+            gpg {
+                sign = true
+                passphrase = System.getenv('BINTRAY_GPG_PASSPHRASE')
+            }
+        }
+    }
+}
