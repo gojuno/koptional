@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
-class rxjava2spec : Spek({
+class RxJava2ExtensionsSpec : Spek({
 
     val stream by memoized {
         Observable.just(Some("a"), None, Some("b"), Some("c"), None)

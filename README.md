@@ -31,12 +31,12 @@ val v = when (optional) {
     is None -> "fallback"
 }
 
-// Filter only Some values in RxJava2 streams.
+// Filter only Some values emitted by RxJava2 Observable.
 val values: Observable<String> = Observable
     .just(Some("a"), None, Some("b"))
     .filterSome()
 
-// Filter only None values in RxJava2 streams.
+// Filter only None values emitted by RxJava2 Observable.
 val nones: Observable<Unit> = Observable
     .just(Some("a"), None, Some("b"))
     .filterNone()
