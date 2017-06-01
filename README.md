@@ -1,47 +1,33 @@
 ## Koptional — Minimalistic Optional type for Kotlin
 
-Goal of this implementation is to be **convenient to use** and **fit** Kotlin's **null-safe type system**, which resulted in:
+The goal of this implementation is to be convenient to use and fit Kotlin's null-safe type system, which resulted in:
 
-* Only two functions (mimics Kotlin std `.toInt()/toBoolean()/etc`):
+* Only two functions (mimics Kotlin std `toInt()`/`toBoolean()`/etc):
   - `fun <T : Any> T?.toOptional(): Optional<T>`
   - `fun Optional.toNullable(): T?`
-* `Some` and `None` declared as **top level types**, no need to write `Optional.Some` or `Optional.None`
+* `Some` and `None` are declared as **top level types** — no need to write `Optional.Some` or `Optional.None`
 
-### API
-
-#### Create `Some`
+### Usage
 
 ```kotlin
-val o = Some(value)
-```
 
-#### Use `None`
+// Create Some.
+val some = Some(value)
 
-```kotlin
-val o = None // It's an object.
-```
+// Use None.
+val none = None // It's object.
 
-#### Convert `T?` to `Optional<T>`
-
-```kotlin
+// Convert T? to Optional<T>.
+// If something is null — you'll get None, otherwise you'll get Some(something).
 val o = something.toOptional()
-```
 
-If `something` is `null` — you'll get `None`, otherwise you'll get `Some(something)`.
-
-#### Convert `Optional<T>` to `T?`
-
-```kotlin
+// Convert Optional<T> to T?.
+// If Optional is None — you'll get null, otherwise you'll get not null T value.
 val t = optional.toNullable()
-```
 
-If `Optional` is `None` then you'll get `null`, otherwise you'll get `T` value.
-
-#### Check if `Optional` is `Some` or `None`
-
-```kotlin
+// Check if Optional is Some or None.
 val v = when (optional) {
-    is Some -> optional.value // Kotlin will Smart Cast Optional to Some and allow you to get its value.
+    is Some -> optional.value // Smart Casts Optional to Some and allows you access its value.
     is None -> "fallback"
 }
 ```
