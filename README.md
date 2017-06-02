@@ -4,7 +4,7 @@ Disclaimer:
 
 >We don't think that Kotlin itself needs `Optional` because it has strong null-safe type system that effectively eliminates need in such a wrapper. However there are APIs and libraries like [RxJava 2][rxjava2] which don't accept `null` values. 
 
->We also think that in many cases you can use `sealed class`es to express abscent values, however in simple cases like passing `String?` through Rx stream `Optional` is a more convenient solution.
+>We also think that in many cases you can use `sealed class`es to express absent values, however in simple cases like passing `String?` through Rx stream `Optional` is a more convenient solution.
 
 ---
 
