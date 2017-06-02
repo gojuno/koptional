@@ -45,7 +45,7 @@ val values: Observable<String> = Observable
     .filterSome()
 
 // Filter only None values emitted by RxJava2 Observable.
-val nones: Observable<Unit> = Observable
+val noneSignals: Observable<Unit> = Observable
     .just(Some("a"), None, Some("b"))
     .filterNone()
 ```
