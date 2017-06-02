@@ -14,6 +14,7 @@ The goal of this implementation is to be convenient to use and fit Kotlin's null
   - `fun <T : Any> T?.toOptional(): Optional<T>`
   - `fun Optional.toNullable(): T?`
 * `Some` and `None` are declared as **top level types** — no need to write `Optional.Some` or `Optional.None`
+* No functions like `map()`, `getOrElse()`, `filter()`, etc — apply `toNullable()` and use Kotlin sdt functions like `let()`, `takeIf()` and so on.
 
 ### Usage
 
