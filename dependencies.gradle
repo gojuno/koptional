@@ -1,6 +1,7 @@
 ext.versions = [
         kotlin       : '1.1.1',
         rxJava2      : '2.1.0',
+        reactor      : '3.0.7.RELEASE',
 
         junit        : '4.12',
         junitPlatform: '1.0.0-M4',
@@ -16,6 +17,8 @@ ext.libraries = [
         kotlinRuntime             : "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin",
         kotlinReflect             : "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
         rxJava2                   : "io.reactivex.rxjava2:rxjava:$versions.rxJava2",
+        reactor                   : "io.projectreactor:reactor-core:$versions.reactor",
+        reactorTest               : "io.projectreactor.addons:reactor-test:$versions.reactor",
 
 
         junit                     : "junit:junit:$versions.junit",
