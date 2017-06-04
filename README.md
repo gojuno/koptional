@@ -34,10 +34,13 @@ val o = something.toOptional()
 // If Optional is None — you'll get null, otherwise you'll get not null T value.
 val t = optional.toNullable()
 
+// Get value or fallback to other if None (getOrElse()).
+val f = optional.toNullable() ?: "fallback"
+
 // Check if Optional is Some or None.
-val v = when (optional) {
-    is Some -> optional.value // Smart Casts Optional to Some and allows you access its value.
-    is None -> "fallback"
+when (optional) {
+    is Some -> {}
+    is None -> {}
 }
 
 // Filter only Some values emitted by RxJava2 Observable.
