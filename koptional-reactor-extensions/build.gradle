@@ -12,6 +12,7 @@ dependencies {
     testCompile libraries.spekJunitPlatformEngine
     testCompile libraries.assertJ
     testCompile libraries.reactorTest
+    testCompile libraries.junitPlatformLauncher
 }
 
 junitPlatform {
