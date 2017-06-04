@@ -18,7 +18,8 @@ class ReactorExtensionsSpec : Spek({
 
         val stepVerifier by memoized {
             StepVerifier.create(
-                    stream.filterSome()
+                    stream
+                            .filterSome()
             )
         }
 
@@ -33,7 +34,8 @@ class ReactorExtensionsSpec : Spek({
 
         val subscriber by memoized {
             StepVerifier.create(
-                    stream.filterNone()
+                    stream
+                            .filterNone()
             )
         }
 
