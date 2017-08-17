@@ -17,7 +17,7 @@ class RxJava2ExtensionsSpec : Spek({
 
     context("Observable") {
 
-        val stream by memoized {
+        val stream: Observable<out Optional<String>> by memoized {
             Observable.just(Some("a"), None, Some("b"), Some("c"), None)
         }
 
@@ -70,7 +70,7 @@ class RxJava2ExtensionsSpec : Spek({
 
     context("Flowable") {
 
-        val stream by memoized {
+        val stream: Flowable<out Optional<String>> by memoized {
             Flowable.just(Some("a"), None, Some("b"), Some("c"), None)
         }
 
@@ -124,8 +124,8 @@ class RxJava2ExtensionsSpec : Spek({
     context("Maybe") {
 
         context("Stream with Some") {
-            val stream by memoized {
-                Maybe.just(Some("a") as Optional<String>)
+            val stream: Maybe<out Optional<String>> by memoized {
+                Maybe.just(Some("a"))
             }
 
             context("filterSome") {
@@ -177,8 +177,8 @@ class RxJava2ExtensionsSpec : Spek({
         }
 
         context("Stream with None") {
-            val stream by memoized {
-                Maybe.just(None as Optional<String>)
+            val stream: Maybe<out Optional<String>> by memoized {
+                Maybe.just(None)
             }
 
             context("filterSome") {
@@ -232,8 +232,8 @@ class RxJava2ExtensionsSpec : Spek({
     context("Single") {
 
         context("Stream with Some") {
-            val stream by memoized {
-                Single.just(Some("a") as Optional<String>)
+            val stream: Single<out Optional<String>> by memoized {
+                Single.just(Some("a"))
             }
 
             context("filterSome") {
@@ -285,8 +285,8 @@ class RxJava2ExtensionsSpec : Spek({
         }
 
         context("Stream with None") {
-            val stream by memoized {
-                Single.just(None as Optional<String>)
+            val stream: Single<out Optional<String>> by memoized {
+                Single.just(None)
             }
 
             context("filterSome") {
