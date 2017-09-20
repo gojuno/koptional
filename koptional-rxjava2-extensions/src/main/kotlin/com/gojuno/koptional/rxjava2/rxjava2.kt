@@ -25,7 +25,7 @@ private inline fun <reified R : Any> Single<*>.ofType(): Maybe<R> = filter { it 
  * @return an Observable that emits `Some.value` of those items emitted by the source ObservableSource that are `Some`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Observable<Optional<T>>.filterSome(): Observable<T> = ofType<Some<T>>().map { it.value }
+fun <T : Any> Observable<out Optional<T>>.filterSome(): Observable<T> = ofType<Some<T>>().map { it.value }
 
 /**
  * Filters items emitted by a Publisher by only emitting those that are `Some`.
@@ -39,7 +39,7 @@ fun <T : Any> Observable<Optional<T>>.filterSome(): Observable<T> = ofType<Some<
  * @return an Flowable that emits `Some.value` of those items emitted by the source Publisher that are `Some`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Flowable<Optional<T>>.filterSome(): Flowable<T> = ofType<Some<T>>().map { it.value }
+fun <T : Any> Flowable<out Optional<T>>.filterSome(): Flowable<T> = ofType<Some<T>>().map { it.value }
 
 /**
  * Filters items emitted by an MaybeSource by only emitting those that are `Some`.
@@ -53,7 +53,7 @@ fun <T : Any> Flowable<Optional<T>>.filterSome(): Flowable<T> = ofType<Some<T>>(
  * @return an Maybe that emits `Some.value` of those items emitted by the source MaybeSource that are `Some`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Maybe<Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map { it.value }
+fun <T : Any> Maybe<out Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map { it.value }
 
 /**
  * Filters items emitted by an SingleSource by only emitting those that are `Some`.
@@ -67,7 +67,7 @@ fun <T : Any> Maybe<Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map 
  * @return an Maybe that emits `Some.value` of those items emitted by the source SingleSource that are `Some`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Single<Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map { it.value }
+fun <T : Any> Single<out Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map { it.value }
 
 /**
  * Filters items emitted by an ObservableSource by only emitting those that are `None`.
@@ -81,7 +81,7 @@ fun <T : Any> Single<Optional<T>>.filterSome(): Maybe<T> = ofType<Some<T>>().map
  * @return an Observable that emits `Unit` for each item emitted by the source ObservableSource that is `None`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Observable<Optional<T>>.filterNone(): Observable<Unit> = ofType<None>().map { Unit }
+fun <T : Any> Observable<out Optional<T>>.filterNone(): Observable<Unit> = ofType<None>().map { Unit }
 
 /**
  * Filters items emitted by an Publisher by only emitting those that are `None`.
@@ -95,7 +95,7 @@ fun <T : Any> Observable<Optional<T>>.filterNone(): Observable<Unit> = ofType<No
  * @return an Flowable that emits `Unit` for each item emitted by the source Publisher that is `None`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Flowable<Optional<T>>.filterNone(): Flowable<Unit> = ofType<None>().map { Unit }
+fun <T : Any> Flowable<out Optional<T>>.filterNone(): Flowable<Unit> = ofType<None>().map { Unit }
 
 /**
  * Filters items emitted by an MaybeSource by only emitting those that are `None`.
@@ -109,7 +109,7 @@ fun <T : Any> Flowable<Optional<T>>.filterNone(): Flowable<Unit> = ofType<None>(
  * @return an Maybe that emits `Unit` for each item emitted by the source MaybeSource that is `None`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Maybe<Optional<T>>.filterNone(): Maybe<Unit> = ofType<None>().map { Unit }
+fun <T : Any> Maybe<out Optional<T>>.filterNone(): Maybe<Unit> = ofType<None>().map { Unit }
 
 /**
  * Filters items emitted by an SingleSource by only emitting those that are `None`.
@@ -123,4 +123,4 @@ fun <T : Any> Maybe<Optional<T>>.filterNone(): Maybe<Unit> = ofType<None>().map 
  * @return an Maybe that emits `Unit` for each item emitted by the source SingleSource that is `None`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Single<Optional<T>>.filterNone(): Maybe<Unit> = ofType<None>().map { Unit }
+fun <T : Any> Single<out Optional<T>>.filterNone(): Maybe<Unit> = ofType<None>().map { Unit }

@@ -1,6 +1,7 @@
 package com.gojuno.koptional.reactor
 
 import com.gojuno.koptional.None
+import com.gojuno.koptional.Optional
 import com.gojuno.koptional.Some
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
@@ -10,7 +11,7 @@ import reactor.test.StepVerifier
 
 class ReactorExtensionsSpec : Spek({
 
-    val stream by memoized {
+    val stream: Flux<out Optional<String>> by memoized {
         Flux.just(Some("a"), None, Some("b"), Some("c"), None)
     }
 

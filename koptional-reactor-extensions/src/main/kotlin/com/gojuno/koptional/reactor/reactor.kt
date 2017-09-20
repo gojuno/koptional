@@ -15,7 +15,7 @@ private inline fun <reified R : Any> Flux<*>.ofType(): Flux<R> = ofType(R::class
  * @return a Flux that emits `Some.value` of those items emitted by the source Flux that are `Some`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Flux<Optional<T>>.filterSome(): Flux<T> = ofType<Some<T>>().map { it.value }
+fun <T : Any> Flux<out Optional<T>>.filterSome(): Flux<T> = ofType<Some<T>>().map { it.value }
 
 /**
  * Filters items emitted by a Flux by only emitting those that are `None`.
@@ -25,4 +25,4 @@ fun <T : Any> Flux<Optional<T>>.filterSome(): Flux<T> = ofType<Some<T>>().map { 
  * @return a Flux that emits `Unit` for each item emitted by the source Flux that is `None`.
  * @see <a href="http://reactivex.io/documentation/operators/filter.html">ReactiveX operators documentation: Filter</a>
  */
-fun <T : Any> Flux<Optional<T>>.filterNone(): Flux<Unit> = ofType<None>().map { Unit }
+fun <T : Any> Flux<out Optional<T>>.filterNone(): Flux<Unit> = ofType<None>().map { Unit }
