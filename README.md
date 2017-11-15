@@ -18,12 +18,12 @@ The goal of this implementation is to be convenient to use and fit Kotlin's null
 
 ### Usage
 
-#### Create Some
+#### Create `Some`
 
 ```kotlin
 val some = Some(value)
 ```
-#### Use None
+#### Use `None`
 
 ```kotlin
 val none = None // It's an object!
@@ -57,7 +57,7 @@ when (optional) {
 }
 ```
 
-#### Filter only `Some` values emitted by RxJava2/ProjectReactor
+#### Filter only `Some` values emitted by RxJava 2 or ProjectReactor
 
 ```kotlin
 val values: Observable<String> = Observable
