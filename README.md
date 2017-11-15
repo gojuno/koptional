@@ -57,7 +57,7 @@ when (optional) {
 }
 ```
 
-#### Filter only `Some` values emitted by RxJava 2 or ProjectReactor
+#### Filter only `Some` values emitted by RxJava 2 or Project Reactor
 
 ```kotlin
 val values: Observable<String> = Observable
@@ -66,7 +66,7 @@ val values: Observable<String> = Observable
     .map { value: String -> } // filterSome() unwraps value for you.
 ```
 
-#### Filter only `None` values emitted by RxJava2/ProjectReactor
+#### Filter only `None` values emitted by RxJava 2 or Project Reactor
 
 ```kotlin
 val noneSignals: Observable<Unit> = Observable
