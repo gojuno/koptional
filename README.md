@@ -18,40 +18,61 @@ The goal of this implementation is to be convenient to use and fit Kotlin's null
 
 ### Usage
 
+#### Create `Some`
+
 ```kotlin
-
-// Create Some.
 val some = Some(value)
+```
+#### Use `None`
 
-// Use None.
-val none = None // It's object.
+```kotlin
+val none = None // It's an object!
+```
 
-// Convert T? to Optional<T>.
+#### Convert `T?` to `Optional<T>`
+
+```kotlin
 // If something is null — you'll get None, otherwise you'll get Some(something).
 val o = something.toOptional()
+```
 
-// Convert Optional<T> to T?.
+#### Convert `Optional<T>` to `T?`
+
+```kotlin
 // If Optional is None — you'll get null, otherwise you'll get not null T value.
 val t = optional.toNullable()
+```
 
-// Get value or fallback to other if None (getOrElse()).
+#### Get `value` or fall back to something else if `None` (`getOrElse()`)
+
+```kotlin
 val f = optional.toNullable() ?: "fallback"
+```
+#### Check if `Optional` is `Some` or `None`
 
-// Check if Optional is Some or None.
+```kotlin
 when (optional) {
     is Some -> {}
     is None -> {}
 }
+```
 
-// Filter only Some values emitted by RxJava2 Observable.
+#### Filter only `Some` values emitted by RxJava 2 or Project Reactor
+
+```kotlin
 val values: Observable<String> = Observable
     .just(Some("a"), None, Some("b"))
     .filterSome()
+    .map { value: String -> } // filterSome() unwraps value for you.
+```
 
-// Filter only None values emitted by RxJava2 Observable.
+#### Filter only `None` values emitted by RxJava 2 or Project Reactor
+
+```kotlin
 val noneSignals: Observable<Unit> = Observable
     .just(Some("a"), None, Some("b"))
     .filterNone()
+    .map { none: Unit -> } // filterNone() maps None to Unit.
 ```
 
 ### Download
