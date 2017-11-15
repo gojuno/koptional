@@ -43,12 +43,12 @@ val o = something.toOptional()
 val t = optional.toNullable()
 ```
 
-#### Get value or fall back to something else if `None` (getOrElse())
+#### Get `value` or fall back to something else if `None` (`getOrElse()`)
 
 ```kotlin
 val f = optional.toNullable() ?: "fallback"
 ```
-#### Check if Optional is Some or None
+#### Check if `Optional` is `Some` or `None`
 
 ```kotlin
 when (optional) {
