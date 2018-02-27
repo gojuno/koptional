@@ -8,7 +8,10 @@ sealed class Optional<out T : Any> {
     }
 }
 
-data class Some<out T : Any>(val value: T) : Optional<T>()
+data class Some<out T : Any>(val value: T) : Optional<T>() {
+    override fun toString() = "Some($value)"
+}
+
 object None : Optional<Nothing>() {
     override fun toString() = "None"
 }
