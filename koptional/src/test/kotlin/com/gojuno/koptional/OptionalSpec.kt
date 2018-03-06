@@ -49,4 +49,38 @@ class OptionalSpec : Spek({
             }
         }
     }
+
+    describe("toString") {
+
+        context("Some<Int>.toString") {
+
+            val result = Some(42).toString()
+
+            it("converts it to String") {
+                assertThat(result).isEqualTo("Some(42)")
+            }
+
+        }
+
+        context("Some<Object>.toString") {
+
+            val obj = Object()
+            val result = Some(obj).toString()
+
+            it("converts it to String") {
+                assertThat(result).isEqualTo("Some($obj)")
+            }
+
+        }
+
+        context("None.toString") {
+
+            val result = None.toString()
+
+            it("converts it to String") {
+                assertThat(result).isEqualTo("None")
+            }
+
+        }
+    }
 })
