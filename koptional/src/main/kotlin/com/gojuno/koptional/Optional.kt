@@ -6,6 +6,12 @@ sealed class Optional<out T : Any> {
         is Some -> value
         is None -> null
     }
+
+    companion object {
+
+        @JvmStatic
+        fun <T : Any> toOptional(t: T?): Optional<T> = t.toOptional()
+    }
 }
 
 data class Some<out T : Any>(val value: T) : Optional<T>() {
