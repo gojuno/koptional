@@ -75,6 +75,12 @@ val noneSignals: Observable<Unit> = Observable
     .map { none: Unit -> } // filterNone() maps None to Unit.
 ```
 
+#### Destructure `Some<T>` into T
+
+```kotlin
+val (value) = Some("a")
+```
+
 ### Download
 
 Koptional is [available on jcenter](https://jcenter.bintray.com/com/gojuno/koptional).

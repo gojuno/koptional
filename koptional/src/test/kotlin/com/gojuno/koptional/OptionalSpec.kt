@@ -83,4 +83,42 @@ class OptionalSpec : Spek({
 
         }
     }
+
+    describe("component1") {
+
+        context("Optional<Int>.component1") {
+
+            val (result) = 42.toOptional()
+
+            it("destructures it to Int value") {
+                assertThat(result).isEqualTo(42)
+            }
+        }
+
+        context("None.component1") {
+
+            val (result) = (null as Int?).toOptional()
+
+            it("destructures it to null") {
+                assertThat(result).isNull()
+            }
+        }
+
+        context("Lambda destructuring") {
+            it("destructures to Int value") {
+                listOf(Some(42)).forEach { (value) ->
+                    assertThat(value).isEqualTo(42)
+                }
+            }
+        }
+
+        context("destructure Some") {
+
+            val some = Some("string")
+
+            it("destructures to non-null type") {
+                val (value: String) = some
+            }
+        }
+    }
 })
