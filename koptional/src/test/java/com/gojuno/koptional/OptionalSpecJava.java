@@ -21,8 +21,18 @@ public class OptionalSpecJava {
         assertThat(result).isEqualTo(new Some<>("string"));
     }
 
+    @Test public void nonNullToOptionalCompat() {
+        Optional<String> result = OptionalKt.toOptional("string");
+        assertThat(result).isEqualTo(new Some<>("string"));
+    }
+
     @Test public void nullToOptional() {
         Optional<Object> result = Optional.toOptional(null);
+        assertThat(result).isEqualTo(None.INSTANCE);
+    }
+
+    @Test public void nullToOptionalCompat() {
+        Optional<Object> result = OptionalKt.toOptional(null);
         assertThat(result).isEqualTo(None.INSTANCE);
     }
 }
