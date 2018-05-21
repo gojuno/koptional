@@ -12,7 +12,7 @@ class OptionalSpec : Spek({
 
         context("Some.toNullable") {
 
-            val result = Some("string").toNullable()
+            val result: String = Some("string").toNullable()
 
             it("converts it to value") {
                 assertThat(result).isEqualTo("string")
@@ -21,7 +21,7 @@ class OptionalSpec : Spek({
 
         context("None.toNullable") {
 
-            val result = None.toNullable()
+            val result: Nothing? = None.toNullable()
 
             it("converts it to null") {
                 assertThat(result as Any?).isNull()
@@ -80,7 +80,6 @@ class OptionalSpec : Spek({
             it("converts it to String") {
                 assertThat(result).isEqualTo("None")
             }
-
         }
     }
 })
