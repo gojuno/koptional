@@ -27,6 +27,24 @@ class OptionalSpec : Spek({
                 assertThat(result as Any?).isNull()
             }
         }
+
+        context("Optional.Some.toNullable") {
+
+            val result: String? = (Some("string") as Optional<String>).toNullable()
+
+            it("converts it to value") {
+                assertThat(result).isEqualTo("string")
+            }
+        }
+
+        context("Optional.None.toNullable") {
+
+            val result: Nothing? = (None as Optional<Nothing>).toNullable()
+
+            it("converts it to null") {
+                assertThat(result as Any?).isNull()
+            }
+        }
     }
 
     describe("toOptional") {
