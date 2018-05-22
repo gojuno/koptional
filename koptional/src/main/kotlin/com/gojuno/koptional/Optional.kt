@@ -24,7 +24,7 @@ sealed class Optional<out T : Any> {
          * prefer using the [toOptional][com.gojuno.koptional.toOptional] extension function.
          */
         @JvmStatic
-        fun <T : Any> toOptional(t: T?): Optional<T> = if (t == null) None else Some(t)
+        fun <T : Any> toOptional(value: T?): Optional<T> = if (value == null) None else Some(value)
     }
 }
 
