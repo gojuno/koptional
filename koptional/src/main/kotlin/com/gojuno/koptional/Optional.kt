@@ -10,9 +10,9 @@ sealed class Optional<out T : Any> {
     companion object {
 
         /**
-         * Wrap an instance of T (or null) into an [Optional]:
+         * Wraps an instance of T (or null) into an [Optional]:
          *
-         * ```
+         * ```java
          * String a = "str";
          * String b = null;
          *
@@ -24,7 +24,7 @@ sealed class Optional<out T : Any> {
          * prefer using the [toOptional][com.gojuno.koptional.toOptional] extension function.
          */
         @JvmStatic
-        fun <T : Any> toOptional(t: T?): Optional<T> = t.toOptional()
+        fun <T : Any> toOptional(t: T?): Optional<T> = if (t == null) None else Some(t)
     }
 }
 
@@ -37,9 +37,9 @@ object None : Optional<Nothing>() {
 }
 
 /**
- * Wrap an instance of T (or null) into an [Optional]:
+ * Wraps an instance of T (or null) into an [Optional]:
  *
- * ```
+ * ```kotlin
  * val a: String? = "str"
  * val b: String? = null
  *
@@ -50,5 +50,4 @@ object None : Optional<Nothing>() {
  * This is the preferred method of obtaining an instance of [Optional] in Kotlin. In Java, prefer
  * using the static [Optional.toOptional] method.
  */
-@Suppress("NOTHING_TO_INLINE")
-inline fun <T : Any> T?.toOptional(): Optional<T> = if (this == null) None else Some(this)
+fun <T : Any> T?.toOptional(): Optional<T> = if (this == null) None else Some(this)
