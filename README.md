@@ -75,6 +75,11 @@ val noneSignals: Observable<Unit> = Observable
     .map { none: Unit -> } // filterNone() maps None to Unit.
 ```
 
+### Interoperability with Java
+
+Use the static `Optional.toOptional()` method (declared as a companion object method) to wrap an 
+instance of `T` into `Optional<T>`.  
+
 #### Destructure `Some<T>` into T
 
 ```kotlin
