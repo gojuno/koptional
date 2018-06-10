@@ -7,5 +7,12 @@ services:
 script:
   - bash ci/build.sh
 
+deploy:
+  - provider: script
+    script: PUBLISH=true bash ci/build.sh
+    skip_cleanup: true
+    on:
+      tags: true
+
 notifications:
   email: false
