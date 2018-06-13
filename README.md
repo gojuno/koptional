@@ -80,6 +80,12 @@ val noneSignals: Observable<Unit> = Observable
 Use the static `Optional.toOptional()` method (declared as a companion object method) to wrap an 
 instance of `T` into `Optional<T>`.  
 
+#### Destructure `Some<T>` into T
+
+```kotlin
+val (value) = Some("a")
+```
+
 ### Download
 
 Koptional is [available on jcenter](https://jcenter.bintray.com/com/gojuno/koptional).

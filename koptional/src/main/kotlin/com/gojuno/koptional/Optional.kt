@@ -7,6 +7,11 @@ sealed class Optional<out T : Any> {
      */
     abstract fun toNullable(): T?
 
+    /**
+     * Unwraps this optional into the value it holds or null if there is no value held.
+     */
+    abstract operator fun component1(): T?
+
     companion object {
 
         /**
@@ -35,6 +40,9 @@ data class Some<out T : Any>(val value: T) : Optional<T>() {
 
 object None : Optional<Nothing>() {
     override fun toString() = "None"
+
+    override fun component1(): Nothing? = null
+
     override fun toNullable(): Nothing? = null
 }
 
