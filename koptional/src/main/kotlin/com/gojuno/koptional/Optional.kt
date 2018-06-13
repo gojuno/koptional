@@ -2,10 +2,10 @@ package com.gojuno.koptional
 
 sealed class Optional<out T : Any> {
 
-    fun toNullable(): T? = when (this) {
-        is Some -> value
-        is None -> null
-    }
+    /**
+     * Converts [Optional] to either its non-null value if it's [Some] or `null` if it's [None].
+     */
+    abstract fun toNullable(): T?
 
     /**
      * Unwraps this optional into the value it holds or null if there is no value held.
@@ -35,12 +35,15 @@ sealed class Optional<out T : Any> {
 
 data class Some<out T : Any>(val value: T) : Optional<T>() {
     override fun toString() = "Some($value)"
+    override fun toNullable(): T = value
 }
 
 object None : Optional<Nothing>() {
     override fun toString() = "None"
 
     override fun component1(): Nothing? = null
+
+    override fun toNullable(): Nothing? = null
 }
 
 /**
