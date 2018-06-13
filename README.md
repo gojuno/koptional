@@ -57,6 +57,19 @@ when (optional) {
 }
 ```
 
+#### Destructure `Optional<T>`
+
+Koptional supports [destructuring](https://kotlinlang.org/docs/reference/multi-declarations.html).
+
+Destructuring has same effect as calling `toNullable()`.
+
+```kotlin
+val o: Optional<T> = something.toOptional()
+
+// If Optional is None — you'll get null, otherwise you'll get not null T value.
+val (value) = o
+```
+
 #### Filter only `Some` values emitted by RxJava 2 or Project Reactor
 
 ```kotlin
@@ -79,12 +92,6 @@ val noneSignals: Observable<Unit> = Observable
 
 Use the static `Optional.toOptional()` method (declared as a companion object method) to wrap an 
 instance of `T` into `Optional<T>`.  
-
-#### Destructure `Some<T>` into T
-
-```kotlin
-val (value) = Some("a")
-```
 
 ### Download
 
@@ -109,7 +116,7 @@ All the releases and changelogs can be found on [Releases Page](https://github.c
 Dependencies: you only need `docker` and `bash` installed on your machine.
 
 ```console
-bash ci/build.sh
+ci/build.sh
 ```
 
 ## License
