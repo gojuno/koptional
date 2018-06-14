@@ -1,123 +1,105 @@
-## Koptional — Minimalistic Optional type for Kotlin
+# Koptional — Minimalistic `Optional` type for Kotlin
 
-Disclaimer:
+> We don't think that Kotlin itself needs `Optional` because it has strong
+> `null`-safe type system that effectively eliminates need in such a wrapper.
+> However there are Java APIs and libraries like [RxJava 2][rxjava2] which don't accept `null` values
+> and language-level nullability cannot help with that.
 
->We don't think that Kotlin itself needs `Optional` because it has strong null-safe type system that effectively eliminates need in such a wrapper. However there are APIs and libraries like [RxJava 2][rxjava2] which don't accept `null` values. 
+> We also think that in many cases you can use `sealed class`es to express absent values,
+> however in simple cases like passing `String?` through RxJava stream `Optional` is a more convenient solution.
 
->We also think that in many cases you can use `sealed class`es to express absent values, however in simple cases like passing `String?` through Rx stream `Optional` is a more convenient solution.
+The goal of this implementation is to be convenient to use and fit Kotlin's `null`-safe type system, which resulted in:
 
----
+* Only two functions: `toOptional()` and `toNullable()`.
+  * Mimics Kotlin functions like `toInt()` and `toBoolean()`.
+* `Some` and `None` are declared as **top level types**.
+  * No need to write `Optional.Some` or `Optional.None`.
+* No functions like `map()`, `getOrElse()`, `filter()`, etc.
+  * Use `toNullable()` and Kotlin `stdlib` functions like `let()`, `takeIf()` instead.
 
-The goal of this implementation is to be convenient to use and fit Kotlin's null-safe type system, which resulted in:
+## Usage
 
-* Only two functions (mimics Kotlin std `toInt()`/`toBoolean()`/etc):
-  - `fun <T : Any> T?.toOptional(): Optional<T>`
-  - `fun Optional.toNullable(): T?`
-* `Some` and `None` are declared as **top level types** — no need to write `Optional.Some` or `Optional.None`
-* No functions like `map()`, `getOrElse()`, `filter()`, etc — apply `toNullable()` and use Kotlin sdt functions like `let()`, `takeIf()` and so on.
-
-### Usage
-
-#### Create `Some`
+### Create
 
 ```kotlin
 val some = Some(value)
-```
-#### Use `None`
-
-```kotlin
 val none = None // It's an object!
 ```
 
-#### Convert `T?` to `Optional<T>`
+### Convert
 
 ```kotlin
-// If something is null — you'll get None, otherwise you'll get Some(something).
-val o = something.toOptional()
-```
+// T? → Optional<T>
+// If value is null — you'll get None, otherwise you'll get Some(value).
+val o = value.toOptional()
 
-#### Convert `Optional<T>` to `T?`
-
-```kotlin
-// If Optional is None — you'll get null, otherwise you'll get not null T value.
+// Optional<T> → T?
+// If optional is None — you'll get null, otherwise you'll get non-null T value.
 val t = optional.toNullable()
 ```
 
-#### Get `value` or fall back to something else if `None` (`getOrElse()`)
+### Leverage Kotlin Features
+
+#### Fallback from `None` (like `java.util.Optional.getOrElse()`)
 
 ```kotlin
 val f = optional.toNullable() ?: "fallback"
 ```
-#### Check if `Optional` is `Some` or `None`
+#### Use [Smart Cast](http://kotlinlang.org/docs/reference/typecasts.html#smart-casts)
 
 ```kotlin
 when (optional) {
-    is Some -> {}
-    is None -> {}
+    is Some -> println(optional.value)
+    is None -> println("Nope!")
 }
 ```
 
-#### Destructure `Optional<T>`
-
-Koptional supports [destructuring](https://kotlinlang.org/docs/reference/multi-declarations.html).
-
-Destructuring has same effect as calling `toNullable()`.
+#### Use [Destructuring](https://kotlinlang.org/docs/reference/multi-declarations.html)
 
 ```kotlin
-val o: Optional<T> = something.toOptional()
-
-// If Optional is None — you'll get null, otherwise you'll get not null T value.
-val (value) = o
+// If Optional is None — you'll get null, otherwise you'll get non-null T value.
+val (value) = optional
 ```
 
-#### Filter only `Some` values emitted by RxJava 2 or Project Reactor
+### Interop with Java
+
+Use the static `Optional.toOptional()` to wrap an instance of `T` into `Optional<T>`.
+
+### Work with RxJava 2
 
 ```kotlin
-val values: Observable<String> = Observable
-    .just(Some("a"), None, Some("b"))
+val values = Observable.just(Some("a"), None, Some("b"))
+
+// Filter Some values.
+values
     .filterSome()
-    .map { value: String -> } // filterSome() unwraps value for you.
-```
+    .test()
+    .assertValues("a", "b")
 
-#### Filter only `None` values emitted by RxJava 2 or Project Reactor
-
-```kotlin
-val noneSignals: Observable<Unit> = Observable
-    .just(Some("a"), None, Some("b"))
+// Filter None values.
+values
     .filterNone()
-    .map { none: Unit -> } // filterNone() maps None to Unit.
+    .test()
+    .assertValues(Unit) // filterNone() maps None to Unit.
 ```
 
-### Interoperability with Java
-
-Use the static `Optional.toOptional()` method (declared as a companion object method) to wrap an 
-instance of `T` into `Optional<T>`.  
-
-### Download
+## Download
 
 Koptional is [available on jcenter](https://jcenter.bintray.com/com/gojuno/koptional).
 
-Optional type:
+`Optional`:
 
 ```groovy
-compile 'com.gojuno.koptional:koptional:put-some-version'
+implementation "com.gojuno.koptional:koptional:$koptional_version"
 ```
 
 [RxJava 2][rxjava2] extensions:
 
 ```groovy
-compile 'com.gojuno.koptional:koptional-rxjava2-extensions:put-some-version'
+implementation "com.gojuno.koptional:koptional-rxjava2-extensions:$koptional_version"
 ```
 
 All the releases and changelogs can be found on [Releases Page](https://github.com/gojuno/koptional/releases).
-
-### How to build
-
-Dependencies: you only need `docker` and `bash` installed on your machine.
-
-```console
-ci/build.sh
-```
 
 ## License
 
