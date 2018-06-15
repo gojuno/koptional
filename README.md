@@ -112,7 +112,7 @@ implementation "com.gojuno.koptional:koptional:$koptional_version"
 implementation "com.gojuno.koptional:koptional-rxjava2-extensions:$koptional_version"
 ```
 
-### [Reactor][https://projectreactor.io/] Extensions
+### [Reactor](https://projectreactor.io/) Extensions
 
 ```groovy
 implementation "com.gojuno.koptional:koptional-reactor-extensions:$koptional_version"
