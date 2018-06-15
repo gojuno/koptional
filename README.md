@@ -45,7 +45,7 @@ val t = optional.toNullable()
 ```kotlin
 val f = optional.toNullable() ?: "fallback"
 ```
-#### Use [Smart Cast](http://kotlinlang.org/docs/reference/typecasts.html#smart-casts)
+#### [Smart Cast](http://kotlinlang.org/docs/reference/typecasts.html#smart-casts)
 
 ```kotlin
 when (optional) {
@@ -54,18 +54,18 @@ when (optional) {
 }
 ```
 
-#### Use [Destructuring](https://kotlinlang.org/docs/reference/multi-declarations.html)
+#### [Destructuring](https://kotlinlang.org/docs/reference/multi-declarations.html)
 
 ```kotlin
 // If Optional is None — you'll get null, otherwise you'll get non-null T value.
 val (value) = optional
 ```
 
-### Interop with Java
+### Java Interop
 
 Use the static `Optional.toOptional()` to wrap an instance of `T` into `Optional<T>`.
 
-### Work with RxJava 2
+### RxJava 2 Extensions
 
 ```kotlin
 val values = Observable.just(Some("a"), None, Some("b"))
@@ -83,23 +83,41 @@ values
     .assertValues(Unit) // filterNone() maps None to Unit.
 ```
 
+### Reactor Extensions
+
+```kotlin
+val values = Flux.just(Some("a"), None, Some("b"))
+
+// Filter Some values.
+values.filterSome()
+
+// Filter None values.
+values.filterNone()
+```
+
 ## Download
 
 Koptional is [available on jcenter](https://jcenter.bintray.com/com/gojuno/koptional).
+All the releases and changelogs can be found on [Releases Page](https://github.com/gojuno/koptional/releases).
 
-`Optional`:
+### `Optional`
 
 ```groovy
 implementation "com.gojuno.koptional:koptional:$koptional_version"
 ```
 
-[RxJava 2][rxjava2] extensions:
+### [RxJava 2][rxjava2] Extensions
 
 ```groovy
 implementation "com.gojuno.koptional:koptional-rxjava2-extensions:$koptional_version"
 ```
 
-All the releases and changelogs can be found on [Releases Page](https://github.com/gojuno/koptional/releases).
+### [Reactor][https://projectreactor.io/] Extensions
+
+```groovy
+implementation "com.gojuno.koptional:koptional-reactor-extensions:$koptional_version"
+```
+
 
 ## License
 
