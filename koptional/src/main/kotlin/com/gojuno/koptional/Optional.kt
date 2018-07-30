@@ -10,6 +10,7 @@ sealed class Optional<out T : Any> {
     /**
      * Unwraps this optional into the value it holds or null if there is no value held.
      */
+    @JvmSynthetic
     abstract operator fun component1(): T?
 
     companion object {
