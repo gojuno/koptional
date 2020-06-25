@@ -1,6 +1,7 @@
 ext.versions = [
         kotlin       : '1.2.41',
         rxJava2      : '2.2.19',
+        rxJava3      : '3.0.4',
         reactor      : '3.0.7.RELEASE',
 
         junit        : '4.12',
@@ -12,11 +13,13 @@ ext.versions = [
 ext.libraries = [
         koptional                 : project(':koptional'),
         koptionalRxJava2Extensions: project(':koptional-rxjava2-extensions'),
+        koptionalRxJava3Extensions: project(':koptional-rxjava3-extensions'),
 
         kotlinStd                 : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
         kotlinRuntime             : "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin",
         kotlinReflect             : "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
         rxJava2                   : "io.reactivex.rxjava2:rxjava:$versions.rxJava2",
+        rxJava3                   : "io.reactivex.rxjava3:rxjava:$versions.rxJava3",
         reactor                   : "io.projectreactor:reactor-core:$versions.reactor",
         reactorTest               : "io.projectreactor.addons:reactor-test:$versions.reactor",
 
