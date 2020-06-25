@@ -38,7 +38,7 @@ docker run \
 --env BINTRAY_GPG_PASSPHRASE="$BINTRAY_GPG_PASSPHRASE" \
 --volume `"pwd"`:/opt/project \
 --rm \
-openjdk:8u121-jdk \
+openjdk:8u252-jdk \
 bash -c "$BUILD_COMMAND"
 
 popd
