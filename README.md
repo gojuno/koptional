@@ -2,7 +2,7 @@
 
 > We don't think that Kotlin itself needs `Optional` because it has strong
 > `null`-safe type system that effectively eliminates need in such a wrapper.
-> However there are Java APIs and libraries like [RxJava 2][rxjava2] which don't accept `null` values
+> However there are Java APIs and libraries like [RxJava 2][rxjava2] and [RxJava 3][rxjava3] which don't accept `null` values
 > and language-level nullability cannot help with that.
 
 > We also think that in many cases you can use `sealed class`es to express absent values,
@@ -110,6 +110,12 @@ implementation "com.gojuno.koptional:koptional:$koptional_version"
 
 ```groovy
 implementation "com.gojuno.koptional:koptional-rxjava2-extensions:$koptional_version"
+```
+
+### [RxJava 3][rxjava3] Extensions
+
+```groovy
+implementation "com.gojuno.koptional:koptional-rxjava3-extensions:$koptional_version"
 ```
 
 ### [Reactor](https://projectreactor.io/) Extensions
