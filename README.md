@@ -65,7 +65,7 @@ val (value) = optional
 
 Use the static `Optional.toOptional()` to wrap an instance of `T` into `Optional<T>`.
 
-### RxJava 2 Extensions
+### RxJava Extensions
 
 ```kotlin
 val values = Observable.just(Some("a"), None, Some("b"))
@@ -143,4 +143,5 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-[rxjava2]: https://github.com/ReactiveX/RxJava/
+[rxjava2]: https://github.com/ReactiveX/RxJava/tree/2.x
+[rxjava3]: https://github.com/ReactiveX/RxJava/tree/3.x
