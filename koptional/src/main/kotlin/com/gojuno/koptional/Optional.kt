@@ -3,12 +3,12 @@ package com.gojuno.koptional
 sealed class Optional<out T : Any> {
 
     /**
-     * Converts [Optional] to either its non-null value if it's [Some] or `null` if it's [None].
+     * Converts [Optional] to either its non-`null` value if it’s [Some] or `null` if it’s [None].
      */
     abstract fun toNullable(): T?
 
     /**
-     * Unwraps this optional into the value it holds or null if there is no value held.
+     * Unwraps this [Optional] to either its non-`null` value if it’s [Some] or `null` if it’s [None].
      */
     @JvmSynthetic
     abstract operator fun component1(): T?
@@ -16,14 +16,11 @@ sealed class Optional<out T : Any> {
     companion object {
 
         /**
-         * Wraps an instance of T (or null) into an [Optional]:
+         * Wraps an instance of `T` (or `null`) into an [Optional]:
          *
          * ```java
-         * String a = "str";
-         * String b = null;
-         *
-         * Optional<String> optionalA = Optional.toOptional(a); // Some("str")
-         * Optional<String> optionalB = Optional.toOptional(b); // None
+         * Optional<String> some = Optional.toOptional("value"); // Some("value")
+         * Optional<String> none = Optional.toOptional(null);    // None
          * ```
          *
          * This is the preferred method of obtaining an instance of [Optional] in Java. In Kotlin,
@@ -35,27 +32,25 @@ sealed class Optional<out T : Any> {
 }
 
 data class Some<out T : Any>(val value: T) : Optional<T>() {
-    override fun toString() = "Some($value)"
     override fun toNullable(): T = value
+    override fun toString() = "Some($value)"
 }
 
 object None : Optional<Nothing>() {
-    override fun toString() = "None"
-
     override fun component1(): Nothing? = null
-
     override fun toNullable(): Nothing? = null
+    override fun toString() = "None"
 }
 
 /**
- * Wraps an instance of T (or null) into an [Optional]:
+ * Wraps an instance of `T` (or `null`) into an [Optional]:
  *
  * ```kotlin
- * val a: String? = "str"
- * val b: String? = null
+ * val someValue: String? = "value"
+ * val noneValue: String? = null
  *
- * val optionalA = a.toOptional() // Some("str")
- * val optionalB = b.toOptional() // None
+ * val some = someValue.toOptional() // Some("value")
+ * val none = noneValue.toOptional() // None
  * ```
  *
  * This is the preferred method of obtaining an instance of [Optional] in Kotlin. In Java, prefer
