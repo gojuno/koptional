@@ -11,16 +11,25 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
-        classpath "org.junit.platform:junit-platform-gradle-plugin:$versions.junitPlatform"
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.28.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
-allprojects {
+apply plugin: 'com.github.ben-manes.versions'
+
+subprojects {
     repositories {
         mavenCentral()
     }
 
-    apply plugin: 'com.github.ben-manes.versions'
+    tasks.withType(Test) {
+        maxParallelForks = Runtime.getRuntime().availableProcessors() / 2
+
+        reports.junitXml.enabled = false
+
+        useJUnitPlatform {
+            includeEngines("spek")
+        }
+    }
 }
