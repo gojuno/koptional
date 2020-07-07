@@ -7,9 +7,12 @@ dependencies {
 }
 
 dependencies {
-    testCompile libraries.kotlinReflect
-    testCompile libraries.spek
-    testCompile libraries.spekJunitPlatformEngine
-    testCompile libraries.assertJ
-    testCompile libraries.junitPlatformLauncher
+    testImplementation(libraries.junitPlatformCommons)
+    testImplementation(libraries.junitSpekApi)
+    testImplementation(libraries.kotlinReflect)
+}
+
+dependencies {
+    testRuntimeOnly(libraries.junitPlatformEngine)
+    testRuntimeOnly(libraries.junitSpekEngine)
 }
