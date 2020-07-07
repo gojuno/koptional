@@ -2,132 +2,69 @@ package com.gojuno.koptional
 
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import org.junit.platform.commons.annotation.Testable
 
+@Testable
 class OptionalSpec : Spek({
 
     describe("toNullable") {
 
-        context("Some.toNullable") {
+        it("converts Some to value") {
+            val some: Optional<String> = Some("value")
 
-            val result: String = Some("string").toNullable()
-
-            it("converts it to value") {
-                assertThat(result).isEqualTo("string")
-            }
+            assertThat(some.toNullable()).isEqualTo("value")
         }
 
-        context("None.toNullable") {
+        it("converts None to null") {
+            val none: Optional<String> = None
 
-            val result: Nothing? = None.toNullable()
-
-            it("converts it to null") {
-                assertThat(result as Any?).isNull()
-            }
-        }
-
-        context("Optional.Some.toNullable") {
-
-            val result: String? = (Some("string") as Optional<String>).toNullable()
-
-            it("converts it to value") {
-                assertThat(result).isEqualTo("string")
-            }
-        }
-
-        context("Optional.None.toNullable") {
-
-            val result: Nothing? = (None as Optional<Nothing>).toNullable()
-
-            it("converts it to null") {
-                assertThat(result as Any?).isNull()
-            }
+            assertThat(none.toNullable()).isNull()
         }
     }
 
     describe("toOptional") {
 
-        context("NonNull.toOptional") {
+        it("converts value to Some") {
+            val value = "value"
 
-            val result = "string".toOptional()
-
-            it("converts it to Some") {
-                assertThat(result).isEqualTo(Some("string"))
-            }
+            assertThat(value.toOptional()).isEqualTo(Some(value))
         }
 
-        context("null.toOptional") {
+        it("converts null to None") {
+            val value: String? = null
 
-            val result = null.toOptional()
-
-            it("converts it to None") {
-                assertThat(result).isEqualTo(None)
-            }
+            assertThat(value.toOptional()).isEqualTo(None)
         }
     }
 
     describe("toString") {
 
-        context("Some<Int>.toString") {
-
-            val result = Some(42).toString()
-
-            it("converts it to String") {
-                assertThat(result).isEqualTo("Some(42)")
-            }
-
+        it("produces Some representation") {
+            assertThat(Some("value").toString()).isEqualTo("Some(value)")
         }
 
-        context("Some<Object>.toString") {
-
-            val obj = Object()
-            val result = Some(obj).toString()
-
-            it("converts it to String") {
-                assertThat(result).isEqualTo("Some($obj)")
-            }
-
-        }
-
-        context("None.toString") {
-
-            val result = None.toString()
-
-            it("converts it to String") {
-                assertThat(result).isEqualTo("None")
-            }
+        it("produces None representation") {
+            assertThat(None.toString()).isEqualTo("None")
         }
     }
 
     describe("destructuring") {
 
-        context("destructure Optional") {
+        it("destructures Some to value") {
+            val some: Optional<String> = Some("value")
+            val (destructure) = some
 
-            val (result: Int?) = 42.toOptional()
-
-            it("destructures to its value") {
-                assertThat(result).isEqualTo(42)
-            }
+            assertThat(destructure).isEqualTo("value")
         }
 
-        context("destructure None") {
+        it("destructures None to null") {
+            val none: Optional<String> = None
+            val (destructure) = none
 
-            val (result: Int?) = (null as Int?).toOptional()
-
-            it("destructures to null") {
-                assertThat(result).isNull()
-            }
-        }
-
-        context("destructure Some") {
-
-            val (result: String) = Some("string")
-
-            it("destructures to its value") {
-                assertThat(result).isEqualTo("string")
-            }
+            assertThat(destructure).isNull()
         }
     }
+
 })
