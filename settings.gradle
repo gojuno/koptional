@@ -1,4 +1,0 @@
-include ':koptional'
-include ':koptional-rxjava2-extensions'
-include ':koptional-rxjava3-extensions'
-include ':koptional-reactor-extensions'
