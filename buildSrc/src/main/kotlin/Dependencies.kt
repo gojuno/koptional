@@ -4,12 +4,12 @@ import org.gradle.kotlin.dsl.project
 
 enum class Library(group: String, artifact: String, internal val version: Version) {
     AssertJ("org.assertj", "assertj-core", Version.AssertJ),
+    JUnitApiJupiter("org.junit.jupiter", "junit-jupiter-api", Version.JUnitJupiter),
+    JUnitApiSpek("org.jetbrains.spek", "spek-api", Version.JUnitSpek),
+    JUnitEngineJupiter("org.junit.jupiter", "junit-jupiter-engine", Version.JUnitJupiter),
+    JUnitEngineSpek("org.jetbrains.spek", "spek-junit-platform-engine", Version.JUnitSpek),
     JUnitPlatformCommons("org.junit.platform", "junit-platform-commons", Version.JUnitPlatform),
     JUnitPlatformEngine("org.junit.platform", "junit-platform-engine", Version.JUnitPlatform),
-    JUnitApiJupiter("org.junit.jupiter", "junit-jupiter-api", Version.JUnitJupiter),
-    JUnitApiSpek("org.jetbrains.spek", "spek-api", Version.Spek),
-    JUnitEngineJupiter("org.junit.jupiter", "junit-jupiter-engine", Version.JUnitJupiter),
-    JUnitEngineSpek("org.jetbrains.spek", "spek-junit-platform-engine", Version.Spek),
     KotlinReflect("org.jetbrains.kotlin", "kotlin-reflect", Version.Kotlin),
     KotlinStd("org.jetbrains.kotlin", "kotlin-stdlib", Version.Kotlin),
     ReactorCore("io.projectreactor", "reactor-core", Version.Reactor),
@@ -24,11 +24,11 @@ enum class Library(group: String, artifact: String, internal val version: Versio
         AssertJ("3.16.1"),
         JUnitJupiter("5.6.2"),
         JUnitPlatform("1.6.2"),
+        JUnitSpek("1.1.5"),
         Kotlin("1.3.72"),
         Reactor("3.3.7.RELEASE"),
         RxJava2("2.2.19"),
         RxJava3("3.0.4"),
-        Spek("1.1.5"),
     }
 }
 

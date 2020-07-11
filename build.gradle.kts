@@ -24,8 +24,8 @@ subprojects {
     }
 
     apply {
-        plugin(Plugin.Kotlin.id)
         plugin(Plugin.Bintray.id)
+        plugin(Plugin.Kotlin.id)
         plugin("maven-publish")
     }
 
